@@ -73,7 +73,7 @@ border-radius:15px;
 
 .gr-button{
 background:#2563eb;
-color:white;
+color:black;
 }
 
 """
