@@ -50,85 +50,81 @@ def predict_loan(
 
     prediction = model.predict(input_data)[0]
 
-    return f"Predicted Loan Status : {prediction}"
+    return f"Predicted Loan Status: {prediction}"
 
 
 # ==========================
 # CSS
 # ==========================
-
 custom_css = """
 .gradio-container{
-background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f');
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+    background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
 }
 
 .glass{
-background:rgba(255,255,255,0.95);
-padding:20px;
-border-radius:15px;
+    background:rgba(255,255,255,0.95) !important;
+    padding:20px;
+    border-radius:15px;
+    color:#1f2937 !important;
+}
+
+.glass h1,
+.glass h2,
+.glass h3,
+.glass p,
+.glass li,
+.glass strong{
+    color:#1f2937 !important;
 }
 
 .gr-button{
-background:#2563eb;
-color:black;
+    background:#2563eb !important;
+    color:white !important;
 }
-
 """
-
 
 # ==========================
 # Gradio Interface
 # ==========================
-
 with gr.Blocks(css=custom_css, title="Loan Approval Prediction System") as demo:
 
     with gr.Column(elem_classes="glass"):
 
-        gr.Markdown(
-            """
+        gr.Markdown("""
 # 🏦 Loan Approval Prediction System
 
 Predict whether a loan application is **Approved** or **Rejected**
 using a Machine Learning Random Forest Classifier.
-"""
-        )
+""")
 
         with gr.Row():
 
-            with gr.Column():
+            # Left Column
+            with gr.Column(scale=2):
 
                 dependents = gr.Number(label="Number of Dependents", value=0)
-
                 income = gr.Number(label="Annual Income")
-
                 loan_amount = gr.Number(label="Loan Amount")
-
                 loan_term = gr.Number(label="Loan Term")
-
                 cibil = gr.Number(label="CIBIL Score")
-
                 residential = gr.Number(label="Residential Assets Value")
-
                 commercial = gr.Number(label="Commercial Assets Value")
-
                 luxury = gr.Number(label="Luxury Assets Value")
-
                 bank = gr.Number(label="Bank Asset Value")
 
-                predict_btn = gr.Button("Predict Loan Status")
+                predict_btn = gr.Button("Predict Loan Status", variant="primary")
 
                 output = gr.Textbox(label="Prediction")
 
-            
+            # Right Column
+            with gr.Column(scale=1):
 
-with gr.Column(scale=1):
+                gr.Markdown("## 👩‍💻 About the Developer")
 
-    gr.Markdown("## 👩‍💻 About the Developer")
-
-    gr.Markdown("""
+                gr.Markdown("""
 **Name:** Manya Singla
 
 **College:** Panipat Institute of Engineering and Technology
@@ -137,9 +133,9 @@ with gr.Column(scale=1):
 
 **Machine Learning Model:** Random Forest Classifier
 
-📧 Email: manyasingla25@gmail.com
+📧 **Email:** manyasingla25@gmail.com
 
-📸 Instagram: @manya_singla_25
+📸 **Instagram:** @manya_singla_25
 
 ### 🛠️ Tools Used
 
@@ -151,7 +147,7 @@ with gr.Column(scale=1):
 """)
 
         predict_btn.click(
-            predict_loan,
+            fn=predict_loan,
             inputs=[
                 dependents,
                 income,
@@ -166,7 +162,9 @@ with gr.Column(scale=1):
             outputs=output,
         )
 
-
+# ==========================
+# Launch App
+# ==========================
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
