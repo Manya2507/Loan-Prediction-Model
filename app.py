@@ -122,11 +122,13 @@ using a Machine Learning Random Forest Classifier.
 
                 output = gr.Textbox(label="Prediction")
 
-            with gr.Column():
+            
 
-                gr.Markdown("## 👩‍💻 Developer")
+with gr.Column(scale=1):
 
-                gr.Markdown("""
+    gr.Markdown("## 👩‍💻 About the Developer")
+
+    gr.Markdown("""
 **Name:** Manya Singla
 
 **College:** Panipat Institute of Engineering and Technology
@@ -135,12 +137,16 @@ using a Machine Learning Random Forest Classifier.
 
 **Machine Learning Model:** Random Forest Classifier
 
-**Programming Language:** Python
+📧 Email: manyasingla25@gmail.com
 
-**Libraries Used**
+📸 Instagram: @manya_singla_25
+
+### 🛠️ Tools Used
+
+- Python
+- Gradio
 - Scikit-Learn
 - Pandas
-- Gradio
 - Joblib
 """)
 
