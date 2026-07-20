@@ -54,15 +54,16 @@ background-position:center;
 background-attachment:fixed;
 }
 
-.glass{
-background:rgba(255,255,255,.95);
-padding:25px;
-border-radius:20px;
-box-shadow:0 0 20px rgba(0,0,0,.25);
+.gr-group{
+background:white !important;
 }
 
 footer{
 visibility:hidden;
+}
+
+h1,h2,h3,p,li{
+color:black !important;
 }
 """
 
@@ -120,33 +121,52 @@ Predict whether a loan application will be **Approved** or **Rejected** using a 
                     label="Prediction"
                 )
 
-            # Right Side
-            with gr.Column(scale=1):
+# Right Side
+with gr.Column(scale=1):
 
-                gr.Markdown("""
-## 👩‍💻 Developer
+    with gr.Group():
 
-**Name:** Manya Singla
+        gr.HTML("""
+        <div style="
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0px 5px 15px rgba(0,0,0,0.2);
+            color:black;
+        ">
 
-**College:**  
-Panipat Institute of Engineering and Technology
+        <h2>👩‍💻 Developer</h2>
 
----
+        <p><b>Name:</b> Manya Singla</p>
 
-## 📌 Project
+        <p><b>College:</b><br>
+        Panipat Institute of Engineering and Technology</p>
 
-Loan Approval Prediction using Random Forest Classifier
+        <hr>
 
----
+        <p><b>Project</b><br>
+        Loan Approval Prediction using Random Forest Classifier</p>
 
-### Technology Stack
+        <hr>
 
-- Python
-- Pandas
-- Scikit-Learn
-- Random Forest Classifier
-- Joblib
-- Gradio
+        <p><b>Technology Stack</b></p>
+
+        <ul>
+        <li>Python</li>
+        <li>Scikit-Learn</li>
+        <li>Random Forest Classifier</li>
+        <li>Pandas</li>
+        <li>Joblib</li>
+        <li>Gradio</li>
+        </ul>
+
+        <hr>
+
+        <p><b>Instagram</b><br>
+        @manya_singla_25</p>
+
+        </div>
+        """)
 
 ---
 
