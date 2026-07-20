@@ -54,16 +54,15 @@ background-position:center;
 background-attachment:fixed;
 }
 
-.gr-group{
-background:white !important;
+.glass{
+background:rgba(255,255,255,.95);
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 20px rgba(0,0,0,.25);
 }
 
 footer{
-visibility:hidden;
-}
-
-h1,h2,h3,p,li{
-color:black !important;
+visibility: not hidden;
 }
 """
 
@@ -121,52 +120,33 @@ Predict whether a loan application will be **Approved** or **Rejected** using a 
                     label="Prediction"
                 )
 
-# Right Side
-with gr.Column(scale=1):
+            # Right Side
+            with gr.Column(scale=1):
 
-    with gr.Group():
+                gr.Markdown("""
+## 👩‍💻 Developer
 
-        gr.HTML("""
-        <div style="
-            background:white;
-            padding:20px;
-            border-radius:15px;
-            box-shadow:0px 5px 15px rgba(0,0,0,0.2);
-            color:black;
-        ">
+**Name:** Manya Singla
 
-        <h2>👩‍💻 Developer</h2>
+**College:**  
+Panipat Institute of Engineering and Technology
 
-        <p><b>Name:</b> Manya Singla</p>
+---
 
-        <p><b>College:</b><br>
-        Panipat Institute of Engineering and Technology</p>
+## 📌 Project
 
-        <hr>
+Loan Approval Prediction using Random Forest Classifier
 
-        <p><b>Project</b><br>
-        Loan Approval Prediction using Random Forest Classifier</p>
+---
 
-        <hr>
+### Technology Stack
 
-        <p><b>Technology Stack</b></p>
-
-        <ul>
-        <li>Python</li>
-        <li>Scikit-Learn</li>
-        <li>Random Forest Classifier</li>
-        <li>Pandas</li>
-        <li>Joblib</li>
-        <li>Gradio</li>
-        </ul>
-
-        <hr>
-
-        <p><b>Instagram</b><br>
-        @manya_singla_25</p>
-
-        </div>
-        """)
+- Python
+- Pandas
+- Scikit-Learn
+- Random Forest Classifier
+- Joblib
+- Gradio
 
 ---
 
@@ -187,7 +167,7 @@ with gr.Column(scale=1):
 ### Output
 
 Predicts whether the loan application will be **Approved** or **Rejected**.
-
+""")
 
         btn.click(
             predict_loan,
