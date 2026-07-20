@@ -187,7 +187,7 @@ with gr.Column(scale=1):
 ### Output
 
 Predicts whether the loan application will be **Approved** or **Rejected**.
-""")
+
 
         btn.click(
             predict_loan,
