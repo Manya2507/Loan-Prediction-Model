@@ -1,170 +1,42 @@
 import os
 import gradio as gr
-import joblib
 import pandas as pd
+import joblib
 
-# ==========================
-# Load Trained Model
-# ==========================
-model = joblib.load("loan_prediction_model.pkl")
+# Load model
+model = joblib.load("titanic_prediction_model.pkl")
 
-# ==========================
-# Prediction Function
-# ==========================
-def predict_loan(
-    no_of_dependents,
-    income_annum,
-    loan_amount,
-    loan_term,
-    cibil_score,
-    residential_assets_value,
-    commercial_assets_value,
-    luxury_assets_value,
-    bank_asset_value,
-):
+def predict(age, pclass, fare):
+    data = pd.DataFrame({
+        "age": [age],
+        "pclass": [pclass],
+        "fare": [fare]
+    })
 
-    input_data = pd.DataFrame(
-        [[
-            no_of_dependents,
-            income_annum,
-            loan_amount,
-            loan_term,
-            cibil_score,
-            residential_assets_value,
-            commercial_assets_value,
-            luxury_assets_value,
-            bank_asset_value
-        ]],
-        columns=[
-            " no_of_dependents",
-            " income_annum",
-            " loan_amount",
-            " loan_term",
-            " cibil_score",
-            " residential_assets_value",
-            " commercial_assets_value",
-            " luxury_assets_value",
-            " bank_asset_value"
-        ]
-    )
+    pred = model.predict(data)[0]
 
-    prediction = model.predict(input_data)[0]
+    try:
+        prob = model.predict_proba(data)[0][1]
+        probability = f"\nSurvival Probability: {prob:.2%}"
+    except Exception:
+        probability = ""
 
-    return f"Predicted Loan Status: {prediction}"
+    if pred == 1:
+        return "✅ Passenger is likely to survive" + probability
+    else:
+        return "❌ Passenger is not likely to survive" + probability
 
+demo = gr.Interface(
+    fn=predict,
+    inputs=[
+        gr.Number(label="Age"),
+        gr.Dropdown([1, 2, 3], value=3, label="Passenger Class"),
+        gr.Number(label="Fare")
+    ],
+    outputs=gr.Textbox(label="Prediction"),
+    title="Titanic Survival Prediction"
+)
 
-# ==========================
-# CSS
-# ==========================
-custom_css = """
-.gradio-container{
-    background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f');
-    background-size:cover;
-    background-position:center;
-    background-attachment:fixed;
-}
-
-.glass{
-    background:rgba(255,255,255,0.95) !important;
-    padding:20px;
-    border-radius:15px;
-    color:#1f2937 !important;
-}
-
-.glass h1,
-.glass h2,
-.glass h3,
-.glass p,
-.glass li,
-.glass strong{
-    color:#1f2937 !important;
-}
-
-.gr-button{
-    background:#2563eb !important;
-    color:white !important;
-}
-"""
-
-# ==========================
-# Gradio Interface
-# ==========================
-with gr.Blocks(css=custom_css, title="Loan Approval Prediction System") as demo:
-
-    with gr.Column(elem_classes="glass"):
-
-        gr.Markdown("""
-# 🏦 Loan Approval Prediction System
-
-Predict whether a loan application is **Approved** or **Rejected**
-using a Machine Learning Random Forest Classifier.
-""")
-
-        with gr.Row():
-
-            # Left Column
-            with gr.Column(scale=2):
-
-                dependents = gr.Number(label="Number of Dependents", value=0)
-                income = gr.Number(label="Annual Income")
-                loan_amount = gr.Number(label="Loan Amount")
-                loan_term = gr.Number(label="Loan Term")
-                cibil = gr.Number(label="CIBIL Score")
-                residential = gr.Number(label="Residential Assets Value")
-                commercial = gr.Number(label="Commercial Assets Value")
-                luxury = gr.Number(label="Luxury Assets Value")
-                bank = gr.Number(label="Bank Asset Value")
-
-                predict_btn = gr.Button("Predict Loan Status", variant="primary")
-
-                output = gr.Textbox(label="Prediction")
-
-            # Right Column
-            with gr.Column(scale=1):
-
-                gr.Markdown("## 👩‍💻 About the Developer")
-
-                gr.Markdown("""
-**Name:** Manya Singla
-
-**College:** Panipat Institute of Engineering and Technology
-
-**Project:** AI Based Loan Approval Prediction System
-
-**Machine Learning Model:** Random Forest Classifier
-
-📧 **Email:** manyasingla25@gmail.com
-
-📸 **Instagram:** @manya_singla_25
-
-### 🛠️ Tools Used
-
-- Python
-- Gradio
-- Scikit-Learn
-- Pandas
-- Joblib
-""")
-
-        predict_btn.click(
-            fn=predict_loan,
-            inputs=[
-                dependents,
-                income,
-                loan_amount,
-                loan_term,
-                cibil,
-                residential,
-                commercial,
-                luxury,
-                bank,
-            ],
-            outputs=output,
-        )
-
-# ==========================
-# Launch App
-# ==========================
 if __name__ == "__main__":
     demo.launch(
         server_name="0.0.0.0",
