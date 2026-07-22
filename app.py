@@ -81,15 +81,15 @@ The Random Forest model predicts that the loan application is likely to be REJEC
 DESCRIPTION = """
 # 🏦 Loan Approval Prediction System
 
-This application predicts whether a loan application will be **Approved** or **Rejected** using a trained **Random Forest Classifier**.
+This application predicts whether a loan application will be *Approved* or *Rejected* using a trained *Random Forest Classifier*.
 
 ---
 
 # 👩‍💻 Developer Details
 
-**Name:** Manya Singla
+*Name:* Manya
 
-**College:** Panipat Institute of Engineering and Technology
+*College:* Panipat Institute of Engineering and Technology
 
 ---
 
@@ -99,7 +99,7 @@ Loan Approval Prediction using Machine Learning (Random Forest Classifier)
 
 ---
 
-# 🛠 Technology Stack
+# 🛠️ Technology Stack
 
 - Python
 - Pandas
@@ -177,7 +177,7 @@ demo = gr.Interface(
 # Launch
 # ==========================================================
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     demo.launch(
         server_name="0.0.0.0",
         server_port=int(os.environ.get("PORT", 7860))
